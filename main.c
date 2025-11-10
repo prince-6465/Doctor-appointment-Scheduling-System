@@ -4,7 +4,6 @@
 
 #define MAX_PATIENTS 100
 #define FILE_NAME "appointments.txt"
-
 struct Appointment {
     int id;
     char patientName[50];
@@ -12,11 +11,8 @@ struct Appointment {
     char date[20];
     char time[20];
 };
-
 struct Appointment appointments[MAX_PATIENTS];
 int count = 0;
-
-// Function declarations
 void loadAppointments();
 void saveAppointments();
 void addAppointment();
@@ -26,8 +22,7 @@ void cancelAppointment();
 int main() {
     int choice;
 
-    loadAppointments(); // Load existing data from file
-
+    loadAppointments(); 
     while (1) {
         printf("\n===== DOCTOR APPOINTMENT SCHEDULING SYSTEM =====\n");
         printf("1. Schedule an Appointment\n");
@@ -36,7 +31,7 @@ int main() {
         printf("4. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-        getchar(); // consume newline
+        getchar(); 
 
         switch (choice) {
             case 1:
@@ -49,7 +44,7 @@ int main() {
                 cancelAppointment();
                 break;
             case 4:
-                saveAppointments(); // Save before exiting
+                saveAppointments(); 
                 printf("All data saved successfully. Exiting system.\n");
                 exit(0);
             default:
@@ -59,12 +54,9 @@ int main() {
 
     return 0;
 }
-
-// Load appointments from file
 void loadAppointments() {
     FILE *fp = fopen(FILE_NAME, "r");
     if (fp == NULL) {
-        // No file yet, start fresh
         return;
     }
 
@@ -79,8 +71,6 @@ void loadAppointments() {
 
     fclose(fp);
 }
-
-// Save appointments to file
 void saveAppointments() {
     FILE *fp = fopen(FILE_NAME, "w");
     if (fp == NULL) {
@@ -99,8 +89,6 @@ void saveAppointments() {
 
     fclose(fp);
 }
-
-// Add new appointment
 void addAppointment() {
     if (count >= MAX_PATIENTS) {
         printf("Appointment limit reached!\n");
@@ -129,10 +117,8 @@ void addAppointment() {
     appointments[count++] = newApp;
     saveAppointments();
 
-    printf("✅ Appointment scheduled successfully! ID: %d\n", newApp.id);
+    printf("Appointment scheduled successfully! ID: %d\n", newApp.id);
 }
-
-// View all appointments
 void viewAppointments() {
     if (count == 0) {
         printf("No appointments found.\n");
@@ -149,14 +135,11 @@ void viewAppointments() {
         printf("-----------------------------\n");
     }
 }
-
-// Cancel an appointment
 void cancelAppointment() {
     if (count == 0) {
         printf("No appointments to cancel.\n");
         return;
     }
-
     int id, found = 0;
     printf("Enter Appointment ID to cancel: ");
     scanf("%d", &id);
@@ -170,7 +153,7 @@ void cancelAppointment() {
             }
             count--;
             saveAppointments();
-            printf("❌ Appointment ID %d cancelled successfully.\n", id);
+            printf("Appointment ID %d cancelled successfully.\n", id);
             break;
         }
     }
